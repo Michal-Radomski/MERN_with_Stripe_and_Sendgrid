@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
+import helmet from "helmet";
 
 // Import routes
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("combined"));
+app.use(helmet());
 
 //Route middleware
 
