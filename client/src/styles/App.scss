@@ -1,0 +1,15 @@
+// General styles
+
+@import "variables";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  margin: 0 5px;
+  background-color: lightyellow;
+  font-family: $Roboto-fonts;
+  width: 100%;
+  max-width: 1920px;
+}
