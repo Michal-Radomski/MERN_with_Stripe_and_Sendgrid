@@ -9,7 +9,7 @@ function App(): JSX.Element {
   const product: string = "Present for Michal";
 
   const [price, setPrice] = React.useState<number>(0);
-  console.log({ price });
+  // console.log({ price });
 
   const makePayment = async (token: Token) => {
     const body = {
@@ -25,13 +25,13 @@ function App(): JSX.Element {
     };
 
     const bodyToSend = JSON.stringify(body);
-    console.log({ token });
-    console.log({ body });
+    // console.log({ token });
+    // console.log({ body });
 
     return await axios
       .post("/api/payment", bodyToSend, config)
       .then((response) => {
-        console.log({ response });
+        // console.log({ response });
         const { status } = response;
         console.log({ status });
       })
@@ -73,6 +73,7 @@ function App(): JSX.Element {
         shippingAddress={false}
         billingAddress={true}
         closed={onClosed}
+        currency="PLN"
       >
         <button className="btn-large blue">Present for Michal {price} PLN</button>
       </StripeCheckOut>
