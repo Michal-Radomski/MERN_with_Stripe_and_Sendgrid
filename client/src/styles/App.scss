@@ -13,3 +13,11 @@ body {
   width: 100%;
   max-width: 1920px;
 }
+
+div.stripe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}

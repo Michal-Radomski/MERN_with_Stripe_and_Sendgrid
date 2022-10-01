@@ -8,6 +8,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 // Import routes
+import routes from "./routes";
 
 // The server
 const app: Express = express();
@@ -20,6 +21,7 @@ app.use(morgan("combined"));
 app.use(helmet());
 
 //Route middleware
+app.use("/api", routes);
 
 // Mongo DB
 mongoose
