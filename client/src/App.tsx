@@ -31,7 +31,7 @@ function App(): JSX.Element {
     return await axios
       .post("/api/payment", bodyToSend, config)
       .then((response) => {
-        // console.log({ response });
+        console.log({ response });
         const { status } = response;
         console.log({ status });
       })

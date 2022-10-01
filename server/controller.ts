@@ -8,7 +8,7 @@ interface ExtendedObject extends Object {
   id: string;
 }
 
-export const stripePayment = (req: Request, res: Response) => {
+export const stripePayment = async (req: Request, res: Response) => {
   console.log("req.ip:", req.ip);
   const { product, token, price } = req.body;
   // console.log({ product, token, price });
@@ -16,7 +16,7 @@ export const stripePayment = (req: Request, res: Response) => {
   const idempotencyKey = uuidv4();
   // console.log({ idempotencyKey });
 
-  return stripe.customers
+  return await stripe.customers
     .create(
       {
         email: token.email,
@@ -28,7 +28,7 @@ export const stripePayment = (req: Request, res: Response) => {
       }
     )
     .then((customer: ExtendedObject) => {
-      stripe.charges.create(
+      const charge = stripe.charges.create(
         {
           amount: price * 100,
           currency: "pln",
@@ -44,6 +44,7 @@ export const stripePayment = (req: Request, res: Response) => {
         },
         { idempotencyKey }
       );
+      if (!charge) throw new Error("charge unsuccessful");
     })
     .then((result: Object) => {
       console.log({ result });
@@ -51,5 +52,8 @@ export const stripePayment = (req: Request, res: Response) => {
     })
     .catch((error: string) => {
       console.log({ error });
+      res.status(500).json({
+        error,
+      });
     });
 };
