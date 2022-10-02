@@ -8,16 +8,16 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 // //* V2 - Stripe payment without customer creation
 export const stripePayment = async (req: Request, res: Response) => {
   console.log("req.ip:", req.ip);
-  const { product, token, price } = req.body;
-  // console.log({ product, token, price });
-  // console.log("price:", price, typeof price);
+  const { product, token, present } = req.body;
+  // console.log({ product, token, present });
+  // console.log("present:", present, typeof present);
   const idempotencyKey = uuidv4();
   // console.log({ idempotencyKey });
 
   try {
     const charge = await stripe.charges.create(
       {
-        amount: price * 100,
+        amount: present * 100,
         currency: "pln",
         source: token.id,
         receipt_email: token.email,
@@ -40,7 +40,7 @@ export const stripePayment = async (req: Request, res: Response) => {
     const response = {
       idempotencyKey: idempotencyKey,
       id: charge?.id,
-      amount_captured: charge?.amount_captured,
+      amount_paid: charge?.amount_captured / 100,
       currency: charge?.currency,
       created: charge?.created,
       paid: charge?.paid,
@@ -64,9 +64,9 @@ export const stripePayment = async (req: Request, res: Response) => {
 // // //* V1 - Stripe payment with customer creation
 // export const stripePayment = async (req: Request, res: Response) => {
 //   console.log("req.ip:", req.ip);
-//   const { product, token, price } = req.body;
-//   // console.log({ product, token, price });
-//   // console.log("price:", price, typeof price);
+//   const { product, token, present } = req.body;
+//   // console.log({ product, token, present });
+//   // console.log("present:", present, typeof present);
 //   const idempotencyKey = uuidv4();
 //   // console.log({ idempotencyKey });
 
@@ -86,7 +86,7 @@ export const stripePayment = async (req: Request, res: Response) => {
 //       const charge = stripe.charges
 //         .create(
 //           {
-//             amount: price * 100,
+//             amount: present * 100,
 //             currency: "pln",
 //             customer: customer.id,
 //             receipt_email: token.email,
