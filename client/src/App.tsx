@@ -5,7 +5,7 @@ import axios from "axios";
 import "./styles/App.scss";
 import { useAppDispatch } from "./redux/hooks";
 import { AppDispatch } from "./Interfaces";
-import { payWithCard } from "./redux/actions";
+import { payWithCard, sendEmailAction } from "./redux/actions";
 
 function App(): JSX.Element {
   const stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY as string;
@@ -16,17 +16,35 @@ function App(): JSX.Element {
   const [present, setPresent] = React.useState<number>(0);
   // console.log({ price });
 
+  const config = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const sendEmail = async () => {
+    console.log("test2");
+    dispatch(sendEmailAction());
+    console.log("test3");
+    // return await axios
+    //   .post("/api/sendemail", "email", config)
+    //   .then((response) => {
+    //     console.log({ response });
+    //     console.log("Mail was send");
+    //     // dispatch(sendEmailAction)
+    //   })
+
+    //   .catch((error) => {
+    //     console.log({ error });
+    //   });
+  };
+
   const makePayment = async (token: Token) => {
     const body = {
       token,
       product,
       present,
-    };
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
     };
 
     const bodyToSend = JSON.stringify(body);
@@ -46,7 +64,12 @@ function App(): JSX.Element {
       .then(() => {
         setTimeout(() => {
           setPresent(0);
-        }, 1000);
+        }, 300);
+      })
+      .then(() => {
+        setTimeout(() => {
+          sendEmail();
+        }, 400);
       })
       .catch((error) => {
         console.log({ error });
