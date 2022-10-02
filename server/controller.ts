@@ -21,7 +21,7 @@ export const stripePayment = async (req: Request, res: Response) => {
         currency: "pln",
         source: token.id,
         receipt_email: token.email,
-        description: `purchase of ${product}`,
+        description: `Purchase of: ${product}`,
         shipping: {
           name: token.card.name,
           address: {

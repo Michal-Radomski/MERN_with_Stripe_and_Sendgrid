@@ -46,7 +46,7 @@ function App(): JSX.Element {
   };
 
   const onClosed = () => {
-    console.log(`Your present for Michal id: ${price} PLN`);
+    console.log(`Your present for Michal is: ${price} PLN`);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,9 +66,12 @@ function App(): JSX.Element {
 
       {/* @ts-ignore */}
       <StripeCheckOut
+        panelLabel="Present in: "
+        description="Your are giving a present for Michal..."
+        allowRememberMe={false}
         token={makePayment}
         stripeKey={stripeKey}
-        name={`Present form Michal ${price} PLN`}
+        name={`Present for Michal ${price} PLN`}
         amount={price * 100}
         shippingAddress={false}
         billingAddress={true}
