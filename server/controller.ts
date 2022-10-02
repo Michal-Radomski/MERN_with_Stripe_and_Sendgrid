@@ -23,31 +23,38 @@ export const stripePayment = async (req: Request, res: Response) => {
         source: token.id,
       },
       {
-        timeout: 2000, // 2 seconds
+        timeout: 5000, // 5 seconds
         maxNetworkRetries: 2,
       }
     )
     .then((customer: ExtendedObject) => {
-      const charge = stripe.charges.create(
-        {
-          amount: price * 100,
-          currency: "pln",
-          customer: customer.id,
-          receipt_email: token.email,
-          description: `purchase of ${product}`,
-          shipping: {
-            name: token.card.name,
-            address: {
-              country: token.card.address_country,
+      // console.log({ customer });
+      const charge = stripe.charges
+        .create(
+          {
+            amount: price * 100,
+            currency: "pln",
+            customer: customer.id,
+            receipt_email: token.email,
+            description: `purchase of ${product}`,
+            shipping: {
+              name: token.card.name,
+              address: {
+                country: token.card.address_country,
+              },
             },
           },
-        },
-        { idempotencyKey }
-      );
-      if (!charge) throw new Error("charge unsuccessful");
+          { idempotencyKey }
+        )
+        .then((charge: any) => {
+          console.log({ charge });
+        });
+      if (!charge) {
+        throw new Error("charge unsuccessful");
+      }
     })
     .then((result: Object) => {
-      console.log({ result });
+      // console.log({ result });
       res.status(200).json(result);
     })
     .catch((error: string) => {
