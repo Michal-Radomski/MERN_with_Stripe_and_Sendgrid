@@ -12,7 +12,6 @@ export const payWithCard = (data: RootState) => async (dispatch: AppDispatch) =>
 export const sendEmailAction = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({ type: SEND_EMAIL });
-    console.log("test");
   } catch (error) {
     console.log({ error });
   }

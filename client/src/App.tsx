@@ -3,8 +3,8 @@ import StripeCheckOut, { Token } from "react-stripe-checkout";
 import axios from "axios";
 
 import "./styles/App.scss";
-import { useAppDispatch } from "./redux/hooks";
-import { AppDispatch } from "./Interfaces";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { AppDispatch, RootState } from "./Interfaces";
 import { payWithCard, sendEmailAction } from "./redux/actions";
 
 function App(): JSX.Element {
@@ -12,6 +12,14 @@ function App(): JSX.Element {
   const product: string = "Present for Michal";
 
   const dispatch: AppDispatch = useAppDispatch();
+  const [email, amount, name, mailWasSent, receipt_url] = useAppSelector((state: RootState) => [
+    state?.reducer?.receipt_email,
+    state?.reducer?.amount_paid,
+    state?.reducer?.name,
+    state?.reducer?.mailWasSent,
+    state?.reducer?.receipt_url,
+  ]);
+  // console.log({ email, amount, name, mailWasSent, receipt_url });
 
   const [present, setPresent] = React.useState<number>(0);
   // console.log({ price });
@@ -23,22 +31,31 @@ function App(): JSX.Element {
     },
   };
 
-  const sendEmail = async () => {
-    console.log("test2");
-    dispatch(sendEmailAction());
-    console.log("test3");
-    // return await axios
-    //   .post("/api/sendemail", "email", config)
-    //   .then((response) => {
-    //     console.log({ response });
-    //     console.log("Mail was send");
-    //     // dispatch(sendEmailAction)
-    //   })
+  React.useEffect(() => {
+    const sendEmail = async () => {
+      const bodyToSend = { email, amount, name, receipt_url };
+      // console.log({ bodyToSend });
+      return await axios
+        .post("/api/sendemail", bodyToSend, config)
+        .then((response) => {
+          // console.log({ response });
+          const statusCode = response?.data?.info[0]?.statusCode;
+          console.log({ statusCode });
+          if (statusCode === 202) {
+            console.log("Mail was send");
+            dispatch(sendEmailAction());
+          }
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
+    };
 
-    //   .catch((error) => {
-    //     console.log({ error });
-    //   });
-  };
+    if (email !== "" && amount !== "" && name !== "" && mailWasSent === false) {
+      sendEmail();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount, dispatch, email, mailWasSent, name, receipt_url]);
 
   const makePayment = async (token: Token) => {
     const body = {
@@ -54,10 +71,10 @@ function App(): JSX.Element {
     return await axios
       .post("/api/payment", bodyToSend, config)
       .then((response) => {
-        console.log({ response });
+        // console.log({ response });
         // const { status } = response;
         // console.log({ status });
-        const dataToState = response.data.response;
+        const dataToState = response?.data?.response;
 
         dispatch(payWithCard(dataToState));
       })
@@ -65,11 +82,6 @@ function App(): JSX.Element {
         setTimeout(() => {
           setPresent(0);
         }, 300);
-      })
-      .then(() => {
-        setTimeout(() => {
-          sendEmail();
-        }, 400);
       })
       .catch((error) => {
         console.log({ error });
@@ -87,14 +99,12 @@ function App(): JSX.Element {
   return (
     <div className="stripe">
       <h3>Present for Michał</h3>
-
       <form>
         <label>
           How much do you want to pay? :
           <input type="number" value={present} onChange={onChange} />
         </label>
       </form>
-
       {/* @ts-ignore */}
       <StripeCheckOut
         panelLabel="Present in: "
