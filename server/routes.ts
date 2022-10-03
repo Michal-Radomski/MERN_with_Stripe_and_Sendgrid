@@ -2,10 +2,12 @@ import express from "express";
 
 const router = express.Router();
 
-import { sendEmail, stripePayment } from "./controller";
+import { saveToMondoDB, sendEmail, stripePayment } from "./controller";
 
 router.post("/payment", stripePayment);
 
 router.post("/sendemail", sendEmail);
+
+router.post("/save-to-db", saveToMondoDB);
 
 export default router;

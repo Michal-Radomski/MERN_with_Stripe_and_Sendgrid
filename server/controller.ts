@@ -1,15 +1,36 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 const sgMail = require("@sendgrid/mail");
 
 import { CustomError } from "./Interfaces";
+import Model from "./Model";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
 
-export const sendEmail = async (req: Request, res: Response) => {
+export const saveToMondoDB: RequestHandler = async (req: Request, res: Response) => {
+  const { idempotencyKey, created, amount_paid } = req.body;
+  console.log({ idempotencyKey, created, amount_paid });
+
+  try {
+    const transfer = new Model({
+      idempotencyKey: idempotencyKey,
+      amount: amount_paid,
+      createdAt: created,
+    });
+
+    await transfer.save();
+
+    res.json({ message: "Transfer saved", transfer });
+  } catch (error) {
+    console.log({ error });
+    res.status(500).json({ error });
+  }
+};
+
+export const sendEmail: RequestHandler = async (req: Request, res: Response) => {
   try {
     const { email, amount, name, receipt_url } = req.body;
     // console.log({ email, amount, name, receipt_url });
@@ -43,11 +64,12 @@ export const sendEmail = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log({ error });
+    res.status(500).json({ error });
   }
 };
 
 //* V2 - Stripe payment without customer creation
-export const stripePayment = async (req: Request, res: Response) => {
+export const stripePayment: RequestHandler = async (req: Request, res: Response) => {
   console.log("req.ip:", req.ip);
   const { product, token, present } = req.body;
   // console.log({ product, token, present });
@@ -92,6 +114,7 @@ export const stripePayment = async (req: Request, res: Response) => {
 
     res.status(200).json({ response: response, message: "Charge posted successfully" });
   } catch (error) {
+    console.log({ error });
     res.status(500).json({
       message: (error as CustomError).message,
     });
@@ -103,7 +126,7 @@ export const stripePayment = async (req: Request, res: Response) => {
 // }
 
 //* V1 - Stripe payment with customer creation
-// export const stripePayment = async (req: Request, res: Response) => {
+// export const stripePayment:RequestHandler  = async (req: Request, res: Response) => {
 //   console.log("req.ip:", req.ip);
 //   const { product, token, present } = req.body;
 //   // console.log({ product, token, present });
