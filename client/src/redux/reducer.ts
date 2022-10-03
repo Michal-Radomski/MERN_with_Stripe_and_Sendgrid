@@ -1,10 +1,9 @@
 import { combineReducers } from "redux";
 
 import { Action, RootState } from "../Interfaces";
-import { PAY_WITH_CARD, SEND_EMAIL } from "./actionTypes";
+import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SEND_EMAIL } from "./actionTypes";
 
 const initialState: RootState = {
-  testValue: "testValue",
   idempotencyKey: "",
   id: "",
   amount_paid: "",
@@ -15,14 +14,19 @@ const initialState: RootState = {
   receipt_url: "",
   name: "",
   mailWasSent: false,
+  savedToMongoDB: false,
 };
 
-const reducer = function (state = initialState, action: Action): RootState {
+const appReducer = function (state = initialState, action: Action): RootState {
   switch (action.type) {
     case PAY_WITH_CARD:
       return { ...state, ...action.payload };
     case SEND_EMAIL:
       return { ...state, mailWasSent: true };
+    case SAVE_TO_DB:
+      return { ...state, savedToMongoDB: true };
+    case RESET_STATE:
+      return { initialState };
 
     default:
       return state;
@@ -31,7 +35,7 @@ const reducer = function (state = initialState, action: Action): RootState {
 
 // CombineReducer
 const rootReducer = combineReducers({
-  reducer: reducer,
+  appState: appReducer,
 });
 
 export default rootReducer;

@@ -11,18 +11,17 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 });
 
 export const saveToMondoDB: RequestHandler = async (req: Request, res: Response) => {
-  const { idempotencyKey, created, amount_paid } = req.body;
-  console.log({ idempotencyKey, created, amount_paid });
-
+  const { idempotencyKey, created, amount } = req.body;
+  // console.log({ idempotencyKey, created, amount });
   try {
     const transfer = new Model({
       idempotencyKey: idempotencyKey,
-      amount: amount_paid,
+      amount: amount,
       createdAt: created,
     });
 
     await transfer.save();
-
+    console.log("Transfer saved");
     res.json({ message: "Transfer saved", transfer });
   } catch (error) {
     console.log({ error });
@@ -112,6 +111,7 @@ export const stripePayment: RequestHandler = async (req: Request, res: Response)
       name: charge?.source?.name,
     };
 
+    console.log("Charge posted successfully");
     res.status(200).json({ response: response, message: "Charge posted successfully" });
   } catch (error) {
     console.log({ error });

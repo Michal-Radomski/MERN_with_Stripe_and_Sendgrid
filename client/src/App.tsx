@@ -5,21 +5,23 @@ import axios from "axios";
 import "./styles/App.scss";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { AppDispatch, RootState } from "./Interfaces";
-import { payWithCard, sendEmailAction } from "./redux/actions";
+import { payWithCardAction, resetStateAction, saveToDBAction, sendEmailAction } from "./redux/actions";
 
 function App(): JSX.Element {
   const stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY as string;
   const product: string = "Present for Michal";
 
   const dispatch: AppDispatch = useAppDispatch();
-  const [email, amount, name, mailWasSent, receipt_url] = useAppSelector((state: RootState) => [
-    state?.reducer?.receipt_email,
-    state?.reducer?.amount_paid,
-    state?.reducer?.name,
-    state?.reducer?.mailWasSent,
-    state?.reducer?.receipt_url,
+  const [email, amount, name, mailWasSent, receipt_url, idempotencyKey, created] = useAppSelector((state: RootState) => [
+    state?.appState?.receipt_email,
+    state?.appState?.amount_paid,
+    state?.appState?.name,
+    state?.appState?.mailWasSent,
+    state?.appState?.receipt_url,
+    state?.appState?.idempotencyKey,
+    state?.appState?.created,
   ]);
-  // console.log({ email, amount, name, mailWasSent, receipt_url });
+  // console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created });
 
   const [present, setPresent] = React.useState<number>(0);
   // console.log({ price });
@@ -57,7 +59,39 @@ function App(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, dispatch, email, mailWasSent, name, receipt_url]);
 
-  const makePayment = async (token: Token) => {
+  React.useEffect(() => {
+    const saveToDB = async () => {
+      const bodyToSend = { idempotencyKey, created, amount };
+      // console.log({ bodyToSend });
+      return await axios
+        .post("/api/save-to-db", bodyToSend, config)
+        .then((response) => {
+          // console.log({ response });
+          if (response.data.message === "Transfer saved") {
+            console.log("response.data.message:", response.data.message);
+            dispatch(saveToDBAction());
+          }
+        })
+        .then(() => {
+          setTimeout(() => {
+            dispatch(resetStateAction());
+          }, 1000);
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
+    };
+
+    if (mailWasSent === true) {
+      setTimeout(() => {
+        saveToDB();
+        console.log("Data was saved to the MongoDB");
+      }, 500);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount, created, idempotencyKey, mailWasSent]);
+
+  const payWithCard = async (token: Token) => {
     const body = {
       token,
       product,
@@ -72,11 +106,10 @@ function App(): JSX.Element {
       .post("/api/payment", bodyToSend, config)
       .then((response) => {
         // console.log({ response });
-        // const { status } = response;
-        // console.log({ status });
+        const { status } = response;
+        console.log({ status });
         const dataToState = response?.data?.response;
-
-        dispatch(payWithCard(dataToState));
+        dispatch(payWithCardAction(dataToState));
       })
       .then(() => {
         setTimeout(() => {
@@ -110,7 +143,7 @@ function App(): JSX.Element {
         panelLabel="Present in: "
         description="Your are giving a present for Michal..."
         allowRememberMe={false}
-        token={makePayment}
+        token={payWithCard}
         stripeKey={stripeKey}
         name={`Present for Michal ${present} PLN`}
         amount={present * 100}
