@@ -13,7 +13,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 export const getList: RequestHandler = async (req: Request, res: Response) => {
   console.log("req.ip:", req.ip);
   try {
-    const list = await Model.find();
+    const list = await Model.find().sort({ createdAt: -1 });
     res.status(200).json(list);
   } catch (error) {
     console.log({ error });
@@ -24,11 +24,12 @@ export const getList: RequestHandler = async (req: Request, res: Response) => {
 export const saveToMondoDB: RequestHandler = async (req: Request, res: Response) => {
   const { idempotencyKey, created, amount } = req.body;
   // console.log({ idempotencyKey, created, amount });
+
   try {
     const transfer = new Model({
       idempotencyKey: idempotencyKey,
       amount: amount,
-      createdAt: created,
+      createdAt: created * 1000,
     });
 
     await transfer.save();

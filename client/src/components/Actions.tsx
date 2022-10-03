@@ -47,7 +47,7 @@ const Actions = (): JSX.Element => {
           const statusCode = response?.data?.info[0]?.statusCode;
           console.log({ statusCode });
           if (statusCode === 202) {
-            console.log("Mail was send");
+            console.log("Mail was send to:", email);
             dispatch(sendEmailAction());
           }
         })
@@ -124,6 +124,9 @@ const Actions = (): JSX.Element => {
       })
       .catch((error) => {
         console.log({ error });
+        // console.log( error?.response?.data?.message );
+        alert(error?.response?.data?.message);
+        setPresent(0);
       });
   };
 
