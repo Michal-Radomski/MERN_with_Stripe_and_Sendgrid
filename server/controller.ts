@@ -21,7 +21,7 @@ export const saveToMondoDB: RequestHandler = async (req: Request, res: Response)
     });
 
     await transfer.save();
-    console.log("Transfer saved");
+    await console.log("Transfer saved");
     res.json({ message: "Transfer saved", transfer });
   } catch (error) {
     console.log({ error });
@@ -111,7 +111,7 @@ export const stripePayment: RequestHandler = async (req: Request, res: Response)
       name: charge?.source?.name,
     };
 
-    console.log("Charge posted successfully");
+    await console.log("Charge posted successfully");
     res.status(200).json({ response: response, message: "Charge posted successfully" });
   } catch (error) {
     console.log({ error });
