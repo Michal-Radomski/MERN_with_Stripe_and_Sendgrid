@@ -26,7 +26,7 @@ const appReducer = function (state = initialState, action: Action): RootState {
     case SAVE_TO_DB:
       return { ...state, savedToMongoDB: true };
     case RESET_STATE:
-      return { initialState };
+      return { ...initialState };
 
     default:
       return state;
