@@ -10,6 +10,17 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
 
+export const getList: RequestHandler = async (req: Request, res: Response) => {
+  console.log("req.ip:", req.ip);
+  try {
+    const list = await Model.find();
+    res.status(200).json(list);
+  } catch (error) {
+    console.log({ error });
+    res.status(404).json(error);
+  }
+};
+
 export const saveToMondoDB: RequestHandler = async (req: Request, res: Response) => {
   const { idempotencyKey, created, amount } = req.body;
   // console.log({ idempotencyKey, created, amount });
