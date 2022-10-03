@@ -1,6 +1,7 @@
 import React from "react";
 import StripeCheckOut, { Token } from "react-stripe-checkout";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/styles.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -8,6 +9,7 @@ import { AppDispatch, RootState } from "../Interfaces";
 import { payWithCardAction, resetStateAction, saveToDBAction, sendEmailAction } from "../redux/actions";
 
 const Actions = (): JSX.Element => {
+  const navigate = useNavigate();
   const stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY as string;
   const product: string = "Present for Michal";
 
@@ -33,6 +35,7 @@ const Actions = (): JSX.Element => {
     },
   };
 
+  //* Send Email
   React.useEffect(() => {
     const sendEmail = async () => {
       const bodyToSend = { email, amount, name, receipt_url };
@@ -59,6 +62,7 @@ const Actions = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, dispatch, email, mailWasSent, name, receipt_url]);
 
+  //* Save to the Mongo DB
   React.useEffect(() => {
     const saveToDB = async () => {
       const bodyToSend = { idempotencyKey, created, amount };
@@ -75,6 +79,7 @@ const Actions = (): JSX.Element => {
         .then(() => {
           setTimeout(() => {
             dispatch(resetStateAction());
+            navigate("/list");
           }, 1000);
         })
         .catch((error) => {
@@ -91,6 +96,7 @@ const Actions = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, created, idempotencyKey, mailWasSent]);
 
+  //* Pay with Card
   const payWithCard = async (token: Token) => {
     const body = {
       token,
