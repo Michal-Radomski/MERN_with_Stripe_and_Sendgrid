@@ -2,6 +2,8 @@ import React from "react";
 import StripeCheckOut, { Token } from "react-stripe-checkout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 import "../styles/styles.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -129,6 +131,7 @@ const Actions = (): JSX.Element => {
       .then(() => {
         setTimeout(() => {
           setPresent(0);
+          setGreetings("");
         }, 300);
       })
       .catch((error) => {
@@ -152,30 +155,29 @@ const Actions = (): JSX.Element => {
   return (
     <div className="stripe">
       <h3>Present for Michał</h3>
-      <form onSubmit={onSubmit}>
-        <label>
-          How much do you want to pay? :
-          <input
+      <Form onSubmit={onSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label> How much do you want to pay? :</Form.Label>
+          <Form.Control
             type="number"
             value={present}
             onChange={(event) => setPresent(Number((event.target as HTMLInputElement).valueAsNumber))}
             placeholder="Min 2 PLN"
           />
-        </label>
-        <br />
-        <label>
-          Write greetings for Michał :
-          <input
+          <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label> Write greetings for Michał :</Form.Label>
+          <Form.Control
             type="text"
             value={greetings}
             onChange={(event) => setGreetings((event.target as HTMLInputElement).value)}
             placeholder="Greetings.."
           />
-        </label>
-
+          <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
+        </Form.Group>
         <br />
         {/* @ts-ignore */}
-
         <StripeCheckOut
           panelLabel="Present in: "
           description="Your are giving a present for Michal..."
@@ -189,11 +191,11 @@ const Actions = (): JSX.Element => {
           closed={onClosed}
           currency="PLN"
         >
-          <button className="btn-large blue" type="submit">
+          <Button variant="outline-primary" style={{ width: "100%" }} type="submit">
             Present for Michal {present} PLN
-          </button>
+          </Button>
         </StripeCheckOut>
-      </form>
+      </Form>
     </div>
   );
 };
