@@ -16,6 +16,7 @@ import {
   sendEmailAction,
   writeGreetingsAction,
 } from "../redux/actions";
+import Info from "./Info";
 
 const Actions = (): JSX.Element => {
   const navigate = useNavigate();
@@ -163,50 +164,53 @@ const Actions = (): JSX.Element => {
   };
 
   return (
-    <div className="stripe">
-      <h3>Present and Greetings for Michał</h3>
-      <Form onSubmit={onSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label> How much do you want to pay? :</Form.Label>
-          <Form.Control
-            type="number"
-            value={present}
-            onChange={(event) => setPresent(Number((event.target as HTMLInputElement).valueAsNumber))}
-            placeholder="Min 2 PLN"
-          />
-          <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label> Write greetings for Michał :</Form.Label>
-          <Form.Control
-            type="text"
-            value={greetings}
-            onChange={(event) => setGreetings((event.target as HTMLInputElement).value)}
-            placeholder="Greetings.."
-          />
-          <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
-        </Form.Group>
-        <br />
-        {/* @ts-ignore */}
-        <StripeCheckOut
-          panelLabel="Present in: "
-          description="Your are giving a present for Michal..."
-          allowRememberMe={false}
-          token={payWithCard}
-          stripeKey={stripeKey}
-          name={`Present for Michal ${present} PLN`}
-          amount={present * 100}
-          shippingAddress={false}
-          billingAddress={true}
-          closed={onClosed}
-          currency="PLN"
-        >
-          <Button variant="outline-primary" style={{ width: "100%" }} type="submit">
-            Present for Michal {present} PLN
-          </Button>
-        </StripeCheckOut>
-      </Form>
-    </div>
+    <React.Fragment>
+      <Info />
+      <div className="stripe">
+        <h3>Present and Greetings for Michał</h3>
+        <Form onSubmit={onSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label> How much do you want to pay? :</Form.Label>
+            <Form.Control
+              type="number"
+              value={present}
+              onChange={(event) => setPresent(Number((event.target as HTMLInputElement).valueAsNumber))}
+              placeholder="Min 2 PLN"
+            />
+            <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label> Write greetings for Michał :</Form.Label>
+            <Form.Control
+              type="text"
+              value={greetings}
+              onChange={(event) => setGreetings((event.target as HTMLInputElement).value)}
+              placeholder="Greetings.."
+            />
+            <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
+          </Form.Group>
+          <br />
+          {/* @ts-ignore */}
+          <StripeCheckOut
+            panelLabel="Present in: "
+            description="Your are giving a present for Michal..."
+            allowRememberMe={false}
+            token={payWithCard}
+            stripeKey={stripeKey}
+            name={`Present for Michal ${present} PLN`}
+            amount={present * 100}
+            shippingAddress={false}
+            billingAddress={true}
+            closed={onClosed}
+            currency="PLN"
+          >
+            <Button variant="outline-primary" style={{ width: "100%" }} type="submit">
+              Present for Michal {present} PLN
+            </Button>
+          </StripeCheckOut>
+        </Form>
+      </div>
+    </React.Fragment>
   );
 };
 

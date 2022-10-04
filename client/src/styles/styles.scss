@@ -34,4 +34,21 @@ div.stripe {
   justify-content: center;
   align-items: center;
   align-content: center;
+  h3 {
+    font-weight: 500;
+  }
+}
+
+div.info {
+  background-color: lightyellow;
+  text-align: center;
+  width: 408px;
+  margin: 10px auto 10px auto;
+  border: 1px solid grey;
+  a {
+    text-decoration: none;
+  }
+  p {
+    margin-bottom: 5px;
+  }
 }

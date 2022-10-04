@@ -13,7 +13,6 @@ function App(): JSX.Element {
     <React.Fragment>
       <Router>
         <Header />
-        <hr />
         <Routes>
           <Route path="/" element={<Actions />} />
           <Route path="/list" element={<List />} />
