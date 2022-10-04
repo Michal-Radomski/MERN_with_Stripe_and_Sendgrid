@@ -9,17 +9,23 @@
   margin: 0;
 }
 body {
-  margin: 0 5px;
+  margin: 0 2px;
   background-color: lightblue;
   font-family: $Roboto-fonts !important;
-  width: 100%;
+  width: 99.9%;
   max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h2.header {
   text-align: center;
   margin: 2rem auto 2rem auto;
   font-weight: bold;
+}
+
+a.navigation {
+  font-size: 150% !important;
 }
 
 div.stripe {

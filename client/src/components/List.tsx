@@ -27,7 +27,7 @@ const List = (): JSX.Element => {
   return (
     <div>
       <h2 className="header">List of Greetings and Payments by Card</h2>
-      <Table striped bordered hover responsive style={{ width: "98%", margin: "auto" }} variant="dark">
+      <Table striped bordered hover responsive style={{ width: "100%" }} variant="dark">
         <thead>
           <tr>
             {heading.map((head) => (
