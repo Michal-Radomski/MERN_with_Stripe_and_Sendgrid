@@ -22,7 +22,7 @@ export const getList: RequestHandler = async (req: Request, res: Response) => {
 };
 
 export const saveToMondoDB: RequestHandler = async (req: Request, res: Response) => {
-  const { idempotencyKey, created, amount } = req.body;
+  const { idempotencyKey, created, amount, greetingsFromRedux } = req.body;
   // console.log({ idempotencyKey, created, amount });
 
   try {
@@ -30,6 +30,7 @@ export const saveToMondoDB: RequestHandler = async (req: Request, res: Response)
       idempotencyKey: idempotencyKey,
       amount: amount,
       createdAt: created * 1000,
+      greetings: greetingsFromRedux,
     });
 
     await transfer.save();

@@ -32,7 +32,7 @@ const Actions = (): JSX.Element => {
       state?.appState?.greetings,
     ]
   );
-  console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux });
+  // console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux });
 
   const [present, setPresent] = React.useState<number>(0);
   const [greetings, setGreetings] = React.useState<string>("");
@@ -145,7 +145,7 @@ const Actions = (): JSX.Element => {
 
   const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log({ present, greetings });
+    // console.log({ present, greetings });
     dispatch(writeGreetingsAction(greetings));
   };
 

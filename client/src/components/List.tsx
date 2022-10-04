@@ -6,7 +6,7 @@ const List = (): JSX.Element => {
   const [list, setList] = React.useState<ListItem[]>([]);
   // console.log({list});
 
-  const heading = ["Idempotency Key", "Amount", "Created At"];
+  const heading = ["Idempotency Key", "Amount", "Created At", "Greetings"];
 
   const getList = () => {
     axios
@@ -38,6 +38,7 @@ const List = (): JSX.Element => {
                 <td>{item.idempotencyKey}</td>
                 <td>{item.amount}</td>
                 <td>{item.createdAt as string}</td>
+                <td>{item.greetings}</td>
               </tr>
             );
           })}
