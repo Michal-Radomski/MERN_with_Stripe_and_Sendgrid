@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 const sgMail = require("@sendgrid/mail");
 
 import { CustomError } from "./Interfaces";
-import Model from "./Model";
+
+// import Model, {IModel} from "./Model"; //* V1-> Mongoose Model
+import { IModel, Model } from "./Model"; //* v2 -> Typegoose Model
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
@@ -13,7 +15,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 export const getList: RequestHandler = async (req: Request, res: Response) => {
   console.log("req.ip:", req.ip);
   try {
-    const list = await Model.find().sort({ createdAt: -1 });
+    const list: IModel[] = await Model.find().sort({ createdAt: -1 });
     res.status(200).json(list);
   } catch (error) {
     console.log({ error });
@@ -26,7 +28,7 @@ export const saveToMondoDB: RequestHandler = async (req: Request, res: Response)
   // console.log({ idempotencyKey, created, amount });
 
   try {
-    const transfer = new Model({
+    const transfer: IModel = new Model({
       idempotencyKey: idempotencyKey,
       amount: amount,
       createdAt: created * 1000,
