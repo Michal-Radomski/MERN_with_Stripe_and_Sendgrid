@@ -38,6 +38,7 @@ const Actions = (): JSX.Element => {
 
   const [present, setPresent] = React.useState<number>(0);
   const [greetings, setGreetings] = React.useState<string>("");
+  // console.log({ present, greetings });
 
   const config = {
     method: "POST",
@@ -154,7 +155,7 @@ const Actions = (): JSX.Element => {
 
   return (
     <div className="stripe">
-      <h3>Present for Michał</h3>
+      <h3>Present and Greetings for Michał</h3>
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3">
           <Form.Label> How much do you want to pay? :</Form.Label>
