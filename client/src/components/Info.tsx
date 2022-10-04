@@ -1,4 +1,5 @@
 import React from "react";
+import { Alert } from "react-bootstrap";
 
 const Info = (): JSX.Element => {
   return (
@@ -6,18 +7,21 @@ const Info = (): JSX.Element => {
       <div>
         <div className="info">
           <h5>Card Payment - Type to Test:</h5>
-          <p>Card Number: 4242424242424242</p>
+          <p>
+            Card Number: <span style={{ fontWeight: "bold" }}>2424242424242424</span>
+          </p>
           <p>CVC: Any 3 digits</p>
           <p>Date: Any future date</p>
           <p>
             Info:{" "}
-            <a
+            <Alert.Link
+              as="a"
               href="https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers"
               target="_blank"
               rel="noreferrer"
             >
               Stripe Docs
-            </a>
+            </Alert.Link>
           </p>
         </div>
       </div>
