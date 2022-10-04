@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Actions from "./components/Actions";
 import Header from "./components/Header";
@@ -19,6 +20,7 @@ function App(): JSX.Element {
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
+      <ToastContainer autoClose={8000} />
     </React.Fragment>
   );
 }

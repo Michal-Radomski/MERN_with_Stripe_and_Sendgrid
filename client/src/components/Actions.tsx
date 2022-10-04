@@ -2,8 +2,9 @@ import React from "react";
 import StripeCheckOut, { Token } from "react-stripe-checkout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import "../styles/styles.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -57,9 +58,10 @@ const Actions = (): JSX.Element => {
         .then((response) => {
           // console.log({ response });
           const statusCode = response?.data?.info[0]?.statusCode;
-          console.log({ statusCode });
+          // console.log({ statusCode });
           if (statusCode === 202) {
-            console.log("Mail was send to:", email);
+            // console.log("Mail was send to:", email);
+            toast.success("Mail was send to:", email);
             dispatch(sendEmailAction());
           }
         })
@@ -84,13 +86,14 @@ const Actions = (): JSX.Element => {
         .then((response) => {
           // console.log({ response });
           if (response.data.message === "Transfer saved") {
-            console.log("response.data.message:", response.data.message);
+            // console.log("response.data.message:", response.data.message);
             dispatch(saveToDBAction());
           }
         })
         .then(() => {
           setTimeout(() => {
             dispatch(resetStateAction());
+            toast.info("You are redirect to the list");
             navigate("/list");
           }, 1000);
         })
@@ -102,7 +105,8 @@ const Actions = (): JSX.Element => {
     if (mailWasSent === true) {
       setTimeout(() => {
         saveToDB();
-        console.log("Data was saved to the MongoDB");
+        toast.success("Data was saved to the MongoDB");
+        // console.log("Data was saved to the MongoDB");
       }, 500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,8 +128,9 @@ const Actions = (): JSX.Element => {
       .post("/api/payment", bodyToSend, config)
       .then((response) => {
         // console.log({ response });
-        const { status } = response;
-        console.log({ status });
+        // const { status } = response;
+        // console.log({ status });
+        toast.success("Money has been sent");
         const dataToState = response?.data?.response;
         dispatch(payWithCardAction(dataToState));
       })
@@ -138,13 +143,17 @@ const Actions = (): JSX.Element => {
       .catch((error) => {
         console.log({ error });
         // console.log( error?.response?.data?.message );
-        alert(error?.response?.data?.message);
+        // alert(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
         setPresent(0);
       });
   };
 
   const onClosed = () => {
-    console.log(`Your present for Michal is: ${present} PLN`);
+    // console.log(`Your present for Michal is: ${present} PLN`);
+    if (present >= 2) {
+      toast.info(`Your present for Michal is: ${present} PLN`);
+    }
   };
 
   const onSubmit = (event: React.SyntheticEvent) => {
