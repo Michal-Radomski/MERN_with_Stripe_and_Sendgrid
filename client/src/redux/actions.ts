@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from "../Interfaces";
-import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SEND_EMAIL } from "./actionTypes";
+import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SEND_EMAIL, WRITE_GREETINGS } from "./actionTypes";
 
 export const payWithCardAction = (data: RootState) => async (dispatch: AppDispatch) => {
   try {
@@ -20,6 +20,14 @@ export const sendEmailAction = () => async (dispatch: AppDispatch) => {
 export const saveToDBAction = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({ type: SAVE_TO_DB });
+  } catch (error) {
+    console.log({ error });
+  }
+};
+
+export const writeGreetingsAction = (greetings: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch({ type: WRITE_GREETINGS, payload: greetings });
   } catch (error) {
     console.log({ error });
   }

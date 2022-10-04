@@ -10,4 +10,5 @@ export interface ListItem {
   idempotencyKey: string;
   amount: number | string;
   createdAt: string | Date;
+  greetings: string;
 }

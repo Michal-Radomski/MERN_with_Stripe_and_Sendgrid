@@ -6,7 +6,13 @@ import { useNavigate } from "react-router-dom";
 import "../styles/styles.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { AppDispatch, RootState } from "../Interfaces";
-import { payWithCardAction, resetStateAction, saveToDBAction, sendEmailAction } from "../redux/actions";
+import {
+  payWithCardAction,
+  resetStateAction,
+  saveToDBAction,
+  sendEmailAction,
+  writeGreetingsAction,
+} from "../redux/actions";
 
 const Actions = (): JSX.Element => {
   const navigate = useNavigate();
@@ -14,19 +20,22 @@ const Actions = (): JSX.Element => {
   const product: string = "Present for Michal";
 
   const dispatch: AppDispatch = useAppDispatch();
-  const [email, amount, name, mailWasSent, receipt_url, idempotencyKey, created] = useAppSelector((state: RootState) => [
-    state?.appState?.receipt_email,
-    state?.appState?.amount_paid,
-    state?.appState?.name,
-    state?.appState?.mailWasSent,
-    state?.appState?.receipt_url,
-    state?.appState?.idempotencyKey,
-    state?.appState?.created,
-  ]);
-  // console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created });
+  const [email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux] = useAppSelector(
+    (state: RootState) => [
+      state?.appState?.receipt_email,
+      state?.appState?.amount_paid,
+      state?.appState?.name,
+      state?.appState?.mailWasSent,
+      state?.appState?.receipt_url,
+      state?.appState?.idempotencyKey,
+      state?.appState?.created,
+      state?.appState?.greetings,
+    ]
+  );
+  console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux });
 
   const [present, setPresent] = React.useState<number>(0);
-  // console.log({ price });
+  const [greetings, setGreetings] = React.useState<string>("");
 
   const config = {
     method: "POST",
@@ -65,7 +74,7 @@ const Actions = (): JSX.Element => {
   //* Save to the Mongo DB
   React.useEffect(() => {
     const saveToDB = async () => {
-      const bodyToSend = { idempotencyKey, created, amount };
+      const bodyToSend = { idempotencyKey, created, amount, greetingsFromRedux };
       // console.log({ bodyToSend });
       return await axios
         .post("/api/save-to-db", bodyToSend, config)
@@ -134,35 +143,57 @@ const Actions = (): JSX.Element => {
     console.log(`Your present for Michal is: ${present} PLN`);
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPresent(Number((event.target as HTMLInputElement).value));
+  const onSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    console.log({ present, greetings });
+    dispatch(writeGreetingsAction(greetings));
   };
 
   return (
     <div className="stripe">
       <h3>Present for Michał</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <label>
           How much do you want to pay? :
-          <input type="number" value={present} onChange={onChange} />
+          <input
+            type="number"
+            value={present}
+            onChange={(event) => setPresent(Number((event.target as HTMLInputElement).valueAsNumber))}
+            placeholder="Min 2 PLN"
+          />
         </label>
+        <br />
+        <label>
+          Write greetings for Michał :
+          <input
+            type="text"
+            value={greetings}
+            onChange={(event) => setGreetings((event.target as HTMLInputElement).value)}
+            placeholder="Greetings.."
+          />
+        </label>
+
+        <br />
+        {/* @ts-ignore */}
+
+        <StripeCheckOut
+          panelLabel="Present in: "
+          description="Your are giving a present for Michal..."
+          allowRememberMe={false}
+          token={payWithCard}
+          stripeKey={stripeKey}
+          name={`Present for Michal ${present} PLN`}
+          amount={present * 100}
+          shippingAddress={false}
+          billingAddress={true}
+          closed={onClosed}
+          currency="PLN"
+        >
+          <button className="btn-large blue" type="submit">
+            Present for Michal {present} PLN
+          </button>
+        </StripeCheckOut>
       </form>
-      {/* @ts-ignore */}
-      <StripeCheckOut
-        panelLabel="Present in: "
-        description="Your are giving a present for Michal..."
-        allowRememberMe={false}
-        token={payWithCard}
-        stripeKey={stripeKey}
-        name={`Present for Michal ${present} PLN`}
-        amount={present * 100}
-        shippingAddress={false}
-        billingAddress={true}
-        closed={onClosed}
-        currency="PLN"
-      >
-        <button className="btn-large blue">Present for Michal {present} PLN</button>
-      </StripeCheckOut>
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 
 import { Action, RootState } from "../Interfaces";
-import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SEND_EMAIL } from "./actionTypes";
+import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SEND_EMAIL, WRITE_GREETINGS } from "./actionTypes";
 
 const initialState: RootState = {
+  greetings: "",
   idempotencyKey: "",
   id: "",
   amount_paid: "",
@@ -19,6 +20,8 @@ const initialState: RootState = {
 
 const appReducer = function (state = initialState, action: Action): RootState {
   switch (action.type) {
+    case WRITE_GREETINGS:
+      return { ...state, greetings: action.payload };
     case PAY_WITH_CARD:
       return { ...state, ...action.payload };
     case SEND_EMAIL:
