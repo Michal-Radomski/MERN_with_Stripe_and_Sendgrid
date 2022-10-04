@@ -9,6 +9,6 @@ export interface ListItem {
   _id: string;
   idempotencyKey: string;
   amount: number | string;
-  createdAt: string | Date;
+  createdAt: Date;
   greetings: string;
 }

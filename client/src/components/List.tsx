@@ -11,7 +11,10 @@ const List = (): JSX.Element => {
   const getList = () => {
     axios
       .get("/api/get-list")
-      .then((res) => setList(res.data))
+      .then((res) => {
+        setList(res.data);
+        // console.log("res.data:", res.data);
+      })
       .catch((error) => console.log({ error }));
   };
 
@@ -37,7 +40,7 @@ const List = (): JSX.Element => {
               <tr key={item._id}>
                 <td>{item.idempotencyKey}</td>
                 <td>{item.amount}</td>
-                <td>{item.createdAt as string}</td>
+                <td>{new Date(item.createdAt).toLocaleString()}</td>
                 <td>{item.greetings}</td>
               </tr>
             );
