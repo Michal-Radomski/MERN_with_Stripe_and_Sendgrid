@@ -10,10 +10,16 @@
 }
 body {
   margin: 0 5px;
-  background-color: lightyellow;
+  background-color: lightblue;
   font-family: $Roboto-fonts !important;
   width: 100%;
   max-width: 1920px;
+}
+
+h2.header {
+  text-align: center;
+  margin: 2rem auto 2rem auto;
+  font-weight: bold;
 }
 
 div.stripe {
