@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 // General styles
 
 @import "variables";
@@ -9,7 +11,7 @@
 body {
   margin: 0 5px;
   background-color: lightyellow;
-  font-family: $Roboto-fonts;
+  font-family: $Roboto-fonts !important;
   width: 100%;
   max-width: 1920px;
 }

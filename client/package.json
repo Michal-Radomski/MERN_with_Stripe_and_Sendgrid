@@ -9,7 +9,9 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "bootstrap": "^5.2.2",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",
@@ -43,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.5"
   }
 }
