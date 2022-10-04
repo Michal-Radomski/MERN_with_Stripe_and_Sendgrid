@@ -1,6 +1,8 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+
+import InfoModal from "./InfoModal";
 
 const Header = (): JSX.Element => {
   let location = useLocation();
@@ -20,10 +22,17 @@ const Header = (): JSX.Element => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="https://github.com/Michal-Radomski" target="_blank" className="navigation">
-            Repo
-          </Nav.Link>
+          <OverlayTrigger placement="bottom" overlay={<Tooltip>Opens in new window</Tooltip>}>
+            <Nav.Link href="https://github.com/Michal-Radomski" target="_blank" className="navigation">
+              Repo
+            </Nav.Link>
+          </OverlayTrigger>
         </Nav.Item>
+        <OverlayTrigger placement="bottom" overlay={<Tooltip>Opens as a Modal</Tooltip>}>
+          <Nav.Item>
+            <InfoModal />
+          </Nav.Item>
+        </OverlayTrigger>
       </Nav>
     </React.Fragment>
   );
