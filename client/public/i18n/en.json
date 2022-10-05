@@ -1,3 +1,24 @@
 {
-  "home": "Home"
+  "home": "Home",
+  "table-header": "List of Greetings and Payments by Card",
+  "Idempotency Key": "Idempotency Key",
+  "Amount": "Amount",
+  "Created At": "Created At",
+  "Greetings": "Greetings",
+  "providers": "External Providers",
+  "stripe": "Card payments are handled by: ",
+  "sendgrid": "Sending emails is handled by: ",
+  "close": "Close",
+  "header-info": "Card Payment - Type to Test:",
+  "card-number": "Card Number:",
+  "card-digits": "Any 3 digits:",
+  "card-date": "Any future date",
+  "date": "Date",
+  "link": "Link opens in a new window",
+  "home-header": "Present and Greetings for Michał",
+  "how-much": "How much do you want to pay? :",
+  "greetings": "Write greetings for Michał :",
+  "list": "You'll see it on the list...",
+  "present": "Present for Michal:",
+  "submit": "Click here to submit"
 }

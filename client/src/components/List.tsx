@@ -1,12 +1,14 @@
 import React from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
+import { useTranslation } from "react-i18next";
 
 import { ListItem } from "../Interfaces";
 
 const List = (): JSX.Element => {
   const [list, setList] = React.useState<ListItem[]>([]);
   // console.log({list});
+  const { t } = useTranslation();
 
   const heading = ["#", "Idempotency Key", "Amount", "Created At", "Greetings"];
 
@@ -26,12 +28,12 @@ const List = (): JSX.Element => {
 
   return (
     <div>
-      <h2 className="header">List of Greetings and Payments by Card</h2>
+      <h2 className="header">{t("table-header")}</h2>
       <Table striped bordered hover responsive style={{ width: "100%" }} variant="dark">
         <thead>
           <tr>
             {heading.map((head) => (
-              <th key={heading.indexOf(head)}>{head}</th>
+              <th key={heading.indexOf(head)}>{t(head)}</th>
             ))}
           </tr>
         </thead>

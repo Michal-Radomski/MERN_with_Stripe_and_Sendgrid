@@ -1,7 +1,9 @@
 import React from "react";
 import { Alert, Button, Modal } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const InfoModal = (): JSX.Element => {
+  const { t } = useTranslation();
   const [show, setShow] = React.useState<boolean>(false);
 
   const handleClose = () => setShow(false);
@@ -20,17 +22,17 @@ const InfoModal = (): JSX.Element => {
 
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton closeLabel="Close Modal">
-          <Modal.Title>External Providers</Modal.Title>
+          <Modal.Title>{t("providers")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>
-            Card payments are handled by:{" "}
+            {t("stripe")}
             <Alert.Link as="a" href="https://stripe.com" target="_blank" rel="noreferrer">
               Stripe
             </Alert.Link>
           </p>
           <p>
-            Sending emails is handled by:{" "}
+            {t("sendgrid")}
             <Alert.Link as="a" href="https://sendgrid.com" target="_blank" rel="noreferrer">
               SendGrid
             </Alert.Link>
@@ -38,7 +40,7 @@ const InfoModal = (): JSX.Element => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
-            Close
+            {t("close")}
           </Button>
         </Modal.Footer>
       </Modal>

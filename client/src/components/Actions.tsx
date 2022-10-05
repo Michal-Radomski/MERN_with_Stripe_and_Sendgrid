@@ -3,6 +3,7 @@ import StripeCheckOut, { Token } from "react-stripe-checkout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -19,6 +20,7 @@ import {
 import Info from "./Info";
 
 const Actions = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY as string;
   const product: string = "Present for Michal";
@@ -167,10 +169,10 @@ const Actions = (): JSX.Element => {
     <React.Fragment>
       <Info />
       <div className="stripe">
-        <h3>Present and Greetings for Michał</h3>
+        <h3>{t("home-header")}</h3>
         <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label> How much do you want to pay? :</Form.Label>
+            <Form.Label>{t("how-much")}</Form.Label>
             <Form.Control
               type="number"
               min="2"
@@ -178,17 +180,17 @@ const Actions = (): JSX.Element => {
               onChange={(event) => setPresent(Number((event.target as HTMLInputElement).valueAsNumber))}
               placeholder="Min 2 PLN"
             />
-            <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
+            <Form.Text className="text-muted">{t("list")}</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label> Write greetings for Michał :</Form.Label>
+            <Form.Label>{t("greetings")}</Form.Label>
             <Form.Control
               type="text"
               value={greetings}
               onChange={(event) => setGreetings((event.target as HTMLInputElement).value)}
               placeholder="Greetings.."
             />
-            <Form.Text className="text-muted">You'll see it on the list...</Form.Text>
+            <Form.Text className="text-muted">{t("list")}</Form.Text>
           </Form.Group>
           <br />
           {/* @ts-ignore */}
@@ -205,9 +207,9 @@ const Actions = (): JSX.Element => {
             closed={onClosed}
             currency="PLN"
           >
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>Click here to submit</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip>{t("submit")}</Tooltip>}>
               <Button variant="outline-primary" style={{ width: "100%" }} type="submit">
-                Present for Michal <span className="button-submit">{present}</span> PLN
+                {t("present")} <span className="button-submit">{present}</span> PLN
               </Button>
             </OverlayTrigger>
           </StripeCheckOut>

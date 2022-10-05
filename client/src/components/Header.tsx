@@ -55,7 +55,6 @@ const Header = (): JSX.Element => {
           <Nav.Item>
             <Nav.Link href="/" disabled={location.pathname === "/" ? true : false} className="navigation">
               {t("home")}
-              {/* Home */}
             </Nav.Link>
           </Nav.Item>
         </OverlayTrigger>

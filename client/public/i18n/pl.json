@@ -1,3 +1,24 @@
 {
-  "home": "Start"
+  "home": "Start",
+  "table-header": "Lista życzeń i płatności",
+  "Idempotency Key": "Klucz idempotencji",
+  "Amount": "Kwota",
+  "Created At": "Wykonano",
+  "Greetings": "Życzenia",
+  "providers": "Zewnętrzni usługodawcy",
+  "stripe": "Płatności kartowe są obsługiwane przez: ",
+  "sendgrid": "Wysyłanie e-maili jest obsługiwane przez: ",
+  "close": "Zamknij",
+  "header-info": "Płatność kartą - wpisz aby przetestować:",
+  "card-number": "Numer karty:",
+  "card-digits": "Dowolne 3 cyfry:",
+  "card-date": "Dowolna przyszła data",
+  "date": "Data",
+  "link": "Link otwiera się w nowym oknie",
+  "home-header": "Prezent i Życzenia dla Michała",
+  "how-much": "Ile chcesz wpłacić? :",
+  "greetings": "Napisz życzenia dla Michała :",
+  "list": "Zobaczysz to na liście...",
+  "present": "Prezent dla Michała:",
+  "submit": "Kliknij aby zatwierdzić"
 }
