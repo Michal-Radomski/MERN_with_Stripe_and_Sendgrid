@@ -11,7 +11,8 @@ const Header = (): JSX.Element => {
   // console.log("location.pathname:", location.pathname);
   const { i18n, t } = useTranslation();
 
-  const [active, setActive] = React.useState<string>("en");
+  const [active, setActive] = React.useState<string | undefined>(localStorage.getItem("i18nextLng" as string) || undefined);
+  // console.log({ active });
 
   React.useEffect(() => {
     if (localStorage.getItem("i18nextLng")?.length! > 2) {
