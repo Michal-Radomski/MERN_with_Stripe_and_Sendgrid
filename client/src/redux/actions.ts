@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from "../Interfaces";
-import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SEND_EMAIL, WRITE_GREETINGS } from "./actionTypes";
+import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SELECT_LANGUAGE, SEND_EMAIL, WRITE_GREETINGS } from "./actionTypes";
 
 export const payWithCardAction = (data: RootState) => async (dispatch: AppDispatch) => {
   try {
@@ -36,6 +36,14 @@ export const writeGreetingsAction = (greetings: string) => async (dispatch: AppD
 export const resetStateAction = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({ type: RESET_STATE });
+  } catch (error) {
+    console.log({ error });
+  }
+};
+
+export const selectLanguageAction = (language: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch({ type: SELECT_LANGUAGE, payload: language });
   } catch (error) {
     console.log({ error });
   }

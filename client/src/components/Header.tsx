@@ -5,13 +5,17 @@ import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 
 import InfoModal from "./InfoModal";
+import { selectLanguageAction } from "../redux/actions";
+import { AppDispatch } from "../Interfaces";
+import { useAppDispatch } from "../redux/hooks";
 
 const Header = (): JSX.Element => {
   let location = useLocation();
   // console.log("location.pathname:", location.pathname);
   const { i18n, t } = useTranslation();
+  const dispatch: AppDispatch = useAppDispatch();
 
-  const [active, setActive] = React.useState<string | undefined>(localStorage.getItem("i18nextLng" as string) || undefined);
+  const [active, setActive] = React.useState<string>(localStorage.getItem("i18nextLng" as string) || "en");
   // console.log({ active });
 
   React.useEffect(() => {
@@ -25,6 +29,7 @@ const Header = (): JSX.Element => {
     // console.log("localStorage.getItem('i18nextLng'):", localStorage.getItem("i18nextLng"));
     i18n.changeLanguage(event as string);
     setActive(event as string);
+    dispatch(selectLanguageAction(event as string));
   };
 
   const SelectLanguage: React.FC = () => {
@@ -94,7 +99,7 @@ const Header = (): JSX.Element => {
         <Nav.Item>
           <OverlayTrigger
             placement="bottom"
-            overlay={<Tooltip>{active === "en" ? "Link opens in a new window" : "Link otwiera się w nowym okie"}</Tooltip>}
+            overlay={<Tooltip>{active === "en" ? "Link opens in a new window" : "Link otwiera się w nowym oknie"}</Tooltip>}
           >
             <Nav.Link
               href="https://github.com/Michal-Radomski/MERN_with_Stripe_and_Sendgrid"
