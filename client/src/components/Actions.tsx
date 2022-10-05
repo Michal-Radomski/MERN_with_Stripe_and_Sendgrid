@@ -173,6 +173,7 @@ const Actions = (): JSX.Element => {
             <Form.Label> How much do you want to pay? :</Form.Label>
             <Form.Control
               type="number"
+              min="2"
               value={present}
               onChange={(event) => setPresent(Number((event.target as HTMLInputElement).valueAsNumber))}
               placeholder="Min 2 PLN"

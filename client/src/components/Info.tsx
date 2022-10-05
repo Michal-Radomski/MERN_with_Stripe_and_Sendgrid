@@ -8,10 +8,14 @@ const Info = (): JSX.Element => {
         <div className="info">
           <h5>Card Payment - Type to Test:</h5>
           <p>
-            Card Number: <span style={{ fontWeight: "bold" }}>2424242424242424</span>
+            Card Number: <span>2424242424242424</span>
           </p>
-          <p>CVC: Any 3 digits</p>
-          <p>Date: Any future date</p>
+          <p>
+            CVC: <span>Any 3 digits</span>
+          </p>
+          <p>
+            Date: <span>Any future date</span>
+          </p>
           <p>
             Info:{" "}
             <OverlayTrigger placement="bottom" overlay={<Tooltip>Link opens in a new window</Tooltip>}>
