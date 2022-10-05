@@ -26,8 +26,8 @@ const Actions = (): JSX.Element => {
   const product: string = "Present for Michal";
 
   const dispatch: AppDispatch = useAppDispatch();
-  const [email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux] = useAppSelector(
-    (state: RootState) => [
+  const [email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux, language] =
+    useAppSelector((state: RootState) => [
       state?.appState?.receipt_email,
       state?.appState?.amount_paid,
       state?.appState?.name,
@@ -36,9 +36,9 @@ const Actions = (): JSX.Element => {
       state?.appState?.idempotencyKey,
       state?.appState?.created,
       state?.appState?.greetings,
-    ]
-  );
-  // console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux });
+      state?.appState?.language,
+    ]);
+  // console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux, language });
 
   const [present, setPresent] = React.useState<number>(0);
   const [greetings, setGreetings] = React.useState<string>("");
@@ -54,7 +54,7 @@ const Actions = (): JSX.Element => {
   //* Send Email
   React.useEffect(() => {
     const sendEmail = async () => {
-      const bodyToSend = { email, amount, name, receipt_url };
+      const bodyToSend = { email, amount, name, receipt_url, language };
       // console.log({ bodyToSend });
       return await axios
         .post("/api/sendemail", bodyToSend, config)

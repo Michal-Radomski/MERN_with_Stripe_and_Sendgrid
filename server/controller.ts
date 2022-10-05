@@ -46,21 +46,30 @@ export const saveToMondoDB: RequestHandler = async (req: Request, res: Response)
 
 export const sendEmail: RequestHandler = async (req: Request, res: Response) => {
   try {
-    const { email, amount, name, receipt_url } = req.body;
-    // console.log({ email, amount, name, receipt_url });
+    const { email, amount, name, receipt_url, language } = req.body;
+    // console.log({ email, amount, name, receipt_url, language });
 
     const from = process.env.FROM as string;
     const to = email as string;
 
-    const subject = "Thanks For Your Present";
+    const subject = language === "en" ? "Thanks For Your Present" : "Dziękuję za Twój Prezent";
 
-    const output = `
+    const output =
+      language === "en"
+        ? `
     <h3>Thanks for your present</h3>
     <p>Dear ${name}</p>
     <p>You have just made a transfer from the card in the amount of ${amount} PLN as a gift for me,</p>
     <p>Confirmation is <a href=${receipt_url} target="_blank" >here</a>.</p>
     <p>Thank you very much - Michal.</p>
-  `;
+  `
+        : `
+  <h3>Dziękuję za Twój prezent</h3>
+  <p>Drogi ${name}</p>
+  <p>Właśnie zrobiłeś przelew z karty w wysokości ${amount} PLN jako prezent dla mnie,</p>
+  <p>Potwierdzenie jest <a href=${receipt_url} target="_blank" >tutaj</a>.</p>
+  <p>Dziękuję bardzo - Michal.</p>
+`;
 
     const msg = {
       to,
