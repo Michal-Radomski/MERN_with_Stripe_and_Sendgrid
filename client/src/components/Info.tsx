@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "react-bootstrap";
+import { Alert, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const Info = (): JSX.Element => {
   return (
@@ -14,14 +14,16 @@ const Info = (): JSX.Element => {
           <p>Date: Any future date</p>
           <p>
             Info:{" "}
-            <Alert.Link
-              as="a"
-              href="https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Stripe Docs
-            </Alert.Link>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip>Link opens in a new window</Tooltip>}>
+              <Alert.Link
+                as="a"
+                href="https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Stripe Docs
+              </Alert.Link>
+            </OverlayTrigger>
           </p>
         </div>
       </div>

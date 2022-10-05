@@ -11,24 +11,41 @@ const Header = (): JSX.Element => {
   return (
     <React.Fragment>
       <Nav className="justify-content-center">
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>{location.pathname === "/" ? "You Are Here" : "Home"}</Tooltip>}
+        >
+          <Nav.Item>
+            <Nav.Link href="/" disabled={location.pathname === "/" ? true : false} className="navigation">
+              Home
+            </Nav.Link>
+          </Nav.Item>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>{location.pathname === "/list" ? "You Are Here" : "List"}</Tooltip>}
+        >
+          <Nav.Item>
+            <Nav.Link href="/list" disabled={location.pathname === "/list" ? true : false} className="navigation">
+              List
+            </Nav.Link>
+          </Nav.Item>
+        </OverlayTrigger>
+
         <Nav.Item>
-          <Nav.Link href="/" disabled={location.pathname === "/" ? true : false} className="navigation">
-            Home
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/list" disabled={location.pathname === "/list" ? true : false} className="navigation">
-            List
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <OverlayTrigger placement="bottom" overlay={<Tooltip>Opens in new window</Tooltip>}>
-            <Nav.Link href="https://github.com/Michal-Radomski" target="_blank" className="navigation">
+          <OverlayTrigger placement="bottom" overlay={<Tooltip>Link opens in a new window</Tooltip>}>
+            <Nav.Link
+              href="https://github.com/Michal-Radomski/MERN_with_Stripe_and_Sendgrid"
+              target="_blank"
+              className="navigation"
+            >
               Repo
             </Nav.Link>
           </OverlayTrigger>
         </Nav.Item>
-        <OverlayTrigger placement="bottom" overlay={<Tooltip>Opens as a Modal</Tooltip>}>
+
+        <OverlayTrigger placement="bottom" overlay={<Tooltip>Link opens as a modal</Tooltip>}>
           <Nav.Item>
             <InfoModal />
           </Nav.Item>

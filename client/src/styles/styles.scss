@@ -10,7 +10,7 @@
 }
 body {
   margin: 0 2px;
-  background-color: lightblue;
+  background-color: $primary-color;
   font-family: $Roboto-fonts !important;
   width: 99.9%;
   max-width: 1920px;
@@ -37,9 +37,14 @@ div.stripe {
   align-content: center;
   h3 {
     font-weight: 500;
+    margin: 1.5rem auto 1.5rem auto;
+  }
+  form button {
+    span.button-submit {
+      font-weight: bold;
+    }
   }
 }
-
 div.info {
   background-color: lightyellow;
   text-align: center;

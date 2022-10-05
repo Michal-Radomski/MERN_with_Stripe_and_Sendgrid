@@ -2,7 +2,7 @@ import React from "react";
 import StripeCheckOut, { Token } from "react-stripe-checkout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -204,9 +204,11 @@ const Actions = (): JSX.Element => {
             closed={onClosed}
             currency="PLN"
           >
-            <Button variant="outline-primary" style={{ width: "100%" }} type="submit">
-              Present for Michal {present} PLN
-            </Button>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip>Click here to submit</Tooltip>}>
+              <Button variant="outline-primary" style={{ width: "100%" }} type="submit">
+                Present for Michal <span className="button-submit">{present}</span> PLN
+              </Button>
+            </OverlayTrigger>
           </StripeCheckOut>
         </Form>
       </div>
