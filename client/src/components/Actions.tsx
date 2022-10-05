@@ -63,8 +63,9 @@ const Actions = (): JSX.Element => {
           const statusCode = response?.data?.info[0]?.statusCode;
           // console.log({ statusCode });
           if (statusCode === 202) {
-            // console.log("Mail was send to:", email);
-            toast.success("Mail was send to:", email);
+            // console.log("Email was send to:", email);
+            // toast.success("Email was send to:", email);
+            toast.success(t("toast-send"), email);
             dispatch(sendEmailAction());
           }
         })
@@ -96,7 +97,8 @@ const Actions = (): JSX.Element => {
         .then(() => {
           setTimeout(() => {
             dispatch(resetStateAction());
-            toast.info("You are redirect to the list");
+            // toast.info("You are redirect to the list");
+            toast.info(t("toast-redirect"));
             navigate("/list");
           }, 1000);
         })
@@ -108,8 +110,9 @@ const Actions = (): JSX.Element => {
     if (mailWasSent === true) {
       setTimeout(() => {
         saveToDB();
-        toast.success("Data was saved to the MongoDB");
         // console.log("Data was saved to the MongoDB");
+        // toast.success("Data was saved to the MongoDB");
+        toast.success(t("toast-save"));
       }, 500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,7 +136,8 @@ const Actions = (): JSX.Element => {
         // console.log({ response });
         // const { status } = response;
         // console.log({ status });
-        toast.success("Money has been sent");
+        // toast.success("Money has been sent");
+        toast.success(t("toast-money"));
         const dataToState = response?.data?.response;
         dispatch(payWithCardAction(dataToState));
       })
@@ -155,7 +159,8 @@ const Actions = (): JSX.Element => {
   const onClosed = () => {
     // console.log(`Your present for Michal is: ${present} PLN`);
     if (present >= 2) {
-      toast.info(`Your present for Michal is: ${present} PLN`);
+      // toast.info(`Your present for Michal is: ${present} PLN`);
+      toast.info(t("toast-info") + `${present} PLN`);
     }
   };
 
@@ -188,7 +193,7 @@ const Actions = (): JSX.Element => {
               type="text"
               value={greetings}
               onChange={(event) => setGreetings((event.target as HTMLInputElement).value)}
-              placeholder="Greetings.."
+              placeholder={t("placeholder")}
             />
             <Form.Text className="text-muted">{t("list")}</Form.Text>
           </Form.Group>
@@ -196,11 +201,12 @@ const Actions = (): JSX.Element => {
           {/* @ts-ignore */}
           <StripeCheckOut
             panelLabel="Present in: "
-            description="Your are giving a present for Michal..."
+            description={t("stripe-present")}
             allowRememberMe={false}
             token={payWithCard}
             stripeKey={stripeKey}
-            name={`Present for Michal ${present} PLN`}
+            // name={`Present for Michal ${present} PLN`}
+            name={(t("stripe-title") as string) + `${present} PLN`}
             amount={present * 100}
             shippingAddress={false}
             billingAddress={true}
