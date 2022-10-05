@@ -1,12 +1,36 @@
 import React from "react";
-import { Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Dropdown, Nav, OverlayTrigger, Tooltip, DropdownButton } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 import InfoModal from "./InfoModal";
 
 const Header = (): JSX.Element => {
   let location = useLocation();
   // console.log("location.pathname:", location.pathname);
+  const { i18n, t } = useTranslation(["home"]);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("i18nextLng")?.length! > 2) {
+      i18next.changeLanguage("en");
+    }
+  }, []);
+
+  const handleLanguageChange = (event: string | null): void => {
+    console.log({ event });
+    console.log("localStorage.getItem('i18nextLng'):", localStorage.getItem("i18nextLng"));
+    i18n.changeLanguage(event as string);
+  };
+
+  const SelectLanguage = () => {
+    return (
+      <DropdownButton id="dropdown-basic-button" title="Select Language" onSelect={handleLanguageChange}>
+        <Dropdown.Item eventKey="en">English</Dropdown.Item>
+        <Dropdown.Item eventKey="pl">Polski</Dropdown.Item>
+      </DropdownButton>
+    );
+  };
 
   return (
     <React.Fragment>
@@ -17,7 +41,8 @@ const Header = (): JSX.Element => {
         >
           <Nav.Item>
             <Nav.Link href="/" disabled={location.pathname === "/" ? true : false} className="navigation">
-              Home
+              {t("home")}
+              {/* Home */}
             </Nav.Link>
           </Nav.Item>
         </OverlayTrigger>
@@ -50,6 +75,10 @@ const Header = (): JSX.Element => {
             <InfoModal />
           </Nav.Item>
         </OverlayTrigger>
+
+        <Nav.Item>
+          <SelectLanguage />
+        </Nav.Item>
       </Nav>
     </React.Fragment>
   );
