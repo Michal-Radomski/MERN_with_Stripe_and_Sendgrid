@@ -65,7 +65,7 @@ const Actions = (): JSX.Element => {
           if (statusCode === 202) {
             // console.log("Email was send to:", email);
             // toast.success("Email was send to:", email);
-            toast.success(t("toast-send"), email);
+            toast.success((t("toast-send") as string) + email);
             dispatch(sendEmailAction());
           }
         })
@@ -160,7 +160,7 @@ const Actions = (): JSX.Element => {
     // console.log(`Your present for Michal is: ${present} PLN`);
     if (present >= 2) {
       // toast.info(`Your present for Michal is: ${present} PLN`);
-      toast.info(t("toast-info") + `${present} PLN`);
+      toast.info((t("toast-info") as string) + `${present} PLN`);
     }
   };
 

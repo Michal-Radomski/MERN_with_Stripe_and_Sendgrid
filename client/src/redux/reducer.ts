@@ -4,7 +4,7 @@ import { Action, RootState } from "../Interfaces";
 import { PAY_WITH_CARD, RESET_STATE, SAVE_TO_DB, SELECT_LANGUAGE, SEND_EMAIL, WRITE_GREETINGS } from "./actionTypes";
 
 const initialState: RootState = {
-  language: "en",
+  language: localStorage.getItem("i18nextLng" as string) || "en",
   greetings: "",
   idempotencyKey: "",
   id: "",

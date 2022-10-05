@@ -25,9 +25,10 @@
   "stripe-present": "Your are giving a present for Michal...",
   "stripe-title": "Present for Michal ",
   "placeholder": "Greetings...",
-  "toast-send": "Email was send to:",
+  "toast-send": "Email was send to: ",
   "toast-redirect": "You are redirect to the list",
   "toast-save": "Data was saved to the MongoDB",
   "toast-money": "Money has been sent",
-  "toast-info": "Your present for Michal is: "
+  "toast-info": "Your present for Michal is: ",
+  "loading": "Loading..."
 }

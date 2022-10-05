@@ -25,9 +25,10 @@
   "stripe-present": "Wpłacasz prezent dla Michała...",
   "stripe-title": "Prezent dla Michała ",
   "placeholder": "Życzenia...",
-  "toast-send": "Email został wysłany do:",
+  "toast-send": "Email został wysłany do: ",
   "toast-redirect": "Jesteś przekierowany na listę",
   "toast-save": "Dane zostały zapisane w MongoDB",
   "toast-money": "Pieniądze zostały wysłane",
-  "toast-info": "Twój prezent dla Michała to: "
+  "toast-info": "Twój prezent dla Michała to: ",
+  "loading": "Ładowanie..."
 }
