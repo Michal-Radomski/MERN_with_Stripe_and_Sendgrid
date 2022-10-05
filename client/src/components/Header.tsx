@@ -9,7 +9,9 @@ import InfoModal from "./InfoModal";
 const Header = (): JSX.Element => {
   let location = useLocation();
   // console.log("location.pathname:", location.pathname);
-  const { i18n, t } = useTranslation(["home"]);
+  const { i18n, t } = useTranslation();
+
+  const [active, setActive] = React.useState<string>("en");
 
   React.useEffect(() => {
     if (localStorage.getItem("i18nextLng")?.length! > 2) {
@@ -18,16 +20,27 @@ const Header = (): JSX.Element => {
   }, []);
 
   const handleLanguageChange = (event: string | null): void => {
-    console.log({ event });
-    console.log("localStorage.getItem('i18nextLng'):", localStorage.getItem("i18nextLng"));
+    // console.log({ event });
+    // console.log("localStorage.getItem('i18nextLng'):", localStorage.getItem("i18nextLng"));
     i18n.changeLanguage(event as string);
+    setActive(event as string);
   };
 
-  const SelectLanguage = () => {
+  const SelectLanguage: React.FC = () => {
     return (
-      <DropdownButton id="dropdown-basic-button" title="Select Language" onSelect={handleLanguageChange}>
-        <Dropdown.Item eventKey="en">English</Dropdown.Item>
-        <Dropdown.Item eventKey="pl">Polski</Dropdown.Item>
+      <DropdownButton
+        title={active === "en" ? "Zmień na PL" : "Change to En"}
+        onSelect={handleLanguageChange}
+        variant="outline-success"
+        menuVariant="dark"
+        className="dropdownBtn"
+      >
+        <Dropdown.Item eventKey="en" active={active === "en" ? true : false}>
+          English
+        </Dropdown.Item>
+        <Dropdown.Item eventKey="pl" active={active === "pl" ? true : false}>
+          Polski
+        </Dropdown.Item>
       </DropdownButton>
     );
   };
@@ -76,9 +89,14 @@ const Header = (): JSX.Element => {
           </Nav.Item>
         </OverlayTrigger>
 
-        <Nav.Item>
-          <SelectLanguage />
-        </Nav.Item>
+        <OverlayTrigger
+          placement="right"
+          overlay={<Tooltip>{active === "en" ? "Selected: English" : "Wybrano: Polski"}</Tooltip>}
+        >
+          <Nav.Item>
+            <SelectLanguage />
+          </Nav.Item>
+        </OverlayTrigger>
       </Nav>
     </React.Fragment>
   );

@@ -25,8 +25,17 @@ h2.header {
 }
 
 a.navigation,
-button.navigation {
-  font-size: 150% !important;
+button.navigation,
+.dropdownBtn > button {
+  font-size: 125% !important;
+}
+
+.dropdownBtn {
+  height: 100% !important;
+  button {
+    height: 100% !important;
+    border: none !important;
+  }
 }
 
 div.stripe {

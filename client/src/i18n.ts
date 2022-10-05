@@ -10,13 +10,12 @@ i18n
   .init({
     backend: {
       // Translation files path
-      loadPath: "/i18n/{{ns}}/{{lng}}.json",
+      loadPath: "/i18n/{{lng}}.json",
     },
     fallbackLng: "en",
     // Logs in console
     debug: false,
     // You can have multiple namespaces, in case you want to divide a huge translation into smaller pieces and load them on demand
-    ns: ["home", "list"],
     interpolation: {
       espaceValue: false,
       formatSeparator: ",",
