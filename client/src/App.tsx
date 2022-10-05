@@ -11,15 +11,17 @@ const NotFound = (): JSX.Element => <h1 style={{ textAlign: "center", marginTop:
 function App(): JSX.Element {
   return (
     <React.Fragment>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Actions />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </Router>
-      <ToastContainer autoClose={8000} />
+      <React.Suspense fallback={<h1 style={{ textAlign: "center", marginTop: "80px" }}>Loading...</h1>}>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Actions />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </Router>
+        <ToastContainer autoClose={8000} />
+      </React.Suspense>
     </React.Fragment>
   );
 }
