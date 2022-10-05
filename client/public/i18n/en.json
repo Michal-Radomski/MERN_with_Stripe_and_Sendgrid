@@ -1,5 +1,6 @@
 {
-  "home": "Home",
+  "nav-home": "Home",
+  "nav-list": "List",
   "table-header": "List of Greetings and Payments by Card",
   "Idempotency Key": "Idempotency Key",
   "Amount": "Amount",

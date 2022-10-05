@@ -50,28 +50,51 @@ const Header = (): JSX.Element => {
       <Nav className="justify-content-center">
         <OverlayTrigger
           placement="bottom"
-          overlay={<Tooltip>{location.pathname === "/" ? "You Are Here" : "Home"}</Tooltip>}
+          overlay={
+            <Tooltip>
+              {active === "en" && location.pathname === "/"
+                ? "You Are Here"
+                : active === "en" && location.pathname !== "/"
+                ? "Home"
+                : active === "pl" && location.pathname === "/"
+                ? "Jesteś tutaj"
+                : "Start"}
+            </Tooltip>
+          }
         >
           <Nav.Item>
             <Nav.Link href="/" disabled={location.pathname === "/" ? true : false} className="navigation">
-              {t("home")}
+              {t("nav-home")}
             </Nav.Link>
           </Nav.Item>
         </OverlayTrigger>
 
         <OverlayTrigger
           placement="bottom"
-          overlay={<Tooltip>{location.pathname === "/list" ? "You Are Here" : "List"}</Tooltip>}
+          overlay={
+            <Tooltip>
+              {active === "en" && location.pathname === "/list"
+                ? "You Are Here"
+                : active === "en" && location.pathname !== "/list"
+                ? "List"
+                : active === "pl" && location.pathname === "/list"
+                ? "Jesteś tutaj"
+                : "Lista"}
+            </Tooltip>
+          }
         >
           <Nav.Item>
             <Nav.Link href="/list" disabled={location.pathname === "/list" ? true : false} className="navigation">
-              List
+              {t("nav-list")}
             </Nav.Link>
           </Nav.Item>
         </OverlayTrigger>
 
         <Nav.Item>
-          <OverlayTrigger placement="bottom" overlay={<Tooltip>Link opens in a new window</Tooltip>}>
+          <OverlayTrigger
+            placement="bottom"
+            overlay={<Tooltip>{active === "en" ? "Link opens in a new window" : "Link otwiera się w nowym okie"}</Tooltip>}
+          >
             <Nav.Link
               href="https://github.com/Michal-Radomski/MERN_with_Stripe_and_Sendgrid"
               target="_blank"
@@ -82,7 +105,10 @@ const Header = (): JSX.Element => {
           </OverlayTrigger>
         </Nav.Item>
 
-        <OverlayTrigger placement="bottom" overlay={<Tooltip>Link opens as a modal</Tooltip>}>
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>{active === "en" ? "Link opens as a modal" : "Link otwiera się jako modal"}</Tooltip>}
+        >
           <Nav.Item>
             <InfoModal />
           </Nav.Item>

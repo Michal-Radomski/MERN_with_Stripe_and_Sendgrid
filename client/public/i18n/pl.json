@@ -1,5 +1,6 @@
 {
-  "home": "Start",
+  "nav-home": "Start",
+  "nav-list": "Lista",
   "table-header": "Lista życzeń i płatności",
   "Idempotency Key": "Klucz idempotencji",
   "Amount": "Kwota",
