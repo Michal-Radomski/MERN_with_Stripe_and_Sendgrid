@@ -3,6 +3,7 @@ import { Dropdown, Nav, OverlayTrigger, Tooltip, DropdownButton } from "react-bo
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import Flag from "react-world-flags";
 
 import InfoModal from "./InfoModal";
 import { selectLanguageAction } from "../redux/actions";
@@ -41,11 +42,12 @@ const Header = (): JSX.Element => {
         menuVariant="dark"
         className="dropdownBtn"
       >
-        <Dropdown.Item eventKey="en" active={active === "en" ? true : false}>
+        <Dropdown.Item eventKey="en" active={active === "en" || active === "en-GB" ? true : false}>
           English
+          <Flag code="gb" height="24" width="32" style={{ float: "right" }} />
         </Dropdown.Item>
         <Dropdown.Item eventKey="pl" active={active === "pl" ? true : false}>
-          Polski
+          Polski <Flag code="pl" height="24" width="32" style={{ float: "right" }} />
         </Dropdown.Item>
       </DropdownButton>
     );
