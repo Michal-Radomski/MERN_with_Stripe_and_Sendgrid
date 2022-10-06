@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Button, Modal } from "react-bootstrap";
+import { Alert, Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 const InfoModal = (): JSX.Element => {
@@ -27,15 +27,27 @@ const InfoModal = (): JSX.Element => {
         <Modal.Body>
           <p>
             {t("stripe")}
-            <Alert.Link as="a" href="https://stripe.com" target="_blank" rel="noreferrer">
-              Stripe
-            </Alert.Link>
+            <OverlayTrigger placement="right" overlay={<Tooltip>{t("link")}</Tooltip>}>
+              <Alert.Link as="a" href="https://stripe.com" target="_blank" rel="noreferrer">
+                Stripe
+              </Alert.Link>
+            </OverlayTrigger>
           </p>
           <p>
             {t("sendgrid")}
-            <Alert.Link as="a" href="https://sendgrid.com" target="_blank" rel="noreferrer">
-              SendGrid
-            </Alert.Link>
+            <OverlayTrigger placement="right" overlay={<Tooltip>{t("link")}</Tooltip>}>
+              <Alert.Link as="a" href="https://sendgrid.com" target="_blank" rel="noreferrer">
+                SendGrid
+              </Alert.Link>
+            </OverlayTrigger>
+          </p>
+          <p>
+            {t("mongodb")}
+            <OverlayTrigger placement="right" overlay={<Tooltip>{t("link")}</Tooltip>}>
+              <Alert.Link as="a" href="https://www.mongodb.com" target="_blank" rel="noreferrer">
+                MongoDB Atlas Database
+              </Alert.Link>
+            </OverlayTrigger>
           </p>
         </Modal.Body>
         <Modal.Footer>

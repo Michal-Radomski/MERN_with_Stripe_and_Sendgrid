@@ -30,5 +30,6 @@
   "toast-save": "Data was saved to the MongoDB",
   "toast-money": "Money has been sent",
   "toast-info": "Your present for Michal is: ",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "mongodb": "The data is stored by: "
 }
