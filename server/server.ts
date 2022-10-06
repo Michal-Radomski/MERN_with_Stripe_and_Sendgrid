@@ -6,6 +6,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import helmet from "helmet";
+import path from "path";
 
 // Import routes
 import routes from "./routes";
@@ -31,11 +32,22 @@ mongoose
   })
   .catch((error: string) => console.log("Mongo DB Error => ", error));
 
-// Test route
-app.get("/", (req: Request, res: Response) => {
-  console.log("req.ip:", req.ip);
-  res.send("<h1 style='color:blue;text-align:center'>API is running</h1>");
-});
+// // Test route
+// app.get("/", (req: Request, res: Response) => {
+//   console.log("req.ip:", req.ip);
+//   res.send("<h1 style='color:blue;text-align:center'>API is running</h1>");
+// });
+
+// Serve static assets in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req: Request, res: Response) => {
+    console.log("req.ip:", req.ip);
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 // Port
 const port = (process.env.PORT || 5000) as number;
