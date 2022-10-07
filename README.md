@@ -20,7 +20,7 @@ then stored in [MongoDB Atlas Database](https://www.mongodb.com). You can see al
 user interface is bilingual: Polish and English. Translations are handled by [i18next](https://www.i18next.com).
 
 **_Payments are in test mode - type to test:_**\
-Card Number: **2424242424242424**\
+Card Number: **4242 4242 4242 4242**\
 CVC: **Any 3 digits**\
 Date: **Any future date**\
 More info on **[Stripe Docs](https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers)**.
