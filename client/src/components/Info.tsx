@@ -10,7 +10,7 @@ const Info = (): JSX.Element => {
         <div className="info">
           <h5>{t("header-info")}</h5>
           <p>
-            {t("card-number")} <span>2424242424242424</span>
+            {t("card-number")} <span>4242 4242 4242 4242</span>
           </p>
           <p>
             CVC: <span>{t("card-digits")}</span>
