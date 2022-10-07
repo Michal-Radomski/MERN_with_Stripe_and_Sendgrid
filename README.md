@@ -19,9 +19,12 @@ automatically by [SendGrid](https://sendgrid.com) (to the email address you prov
 then stored in [MongoDB Atlas Database](https://www.mongodb.com). You can see all the greetings by clicking on the list. The
 user interface is bilingual: Polish and English. Translations are handled by [i18next](https://www.i18next.com).
 
+**_Payments are in test mode - type to test:_** Card Number: **2424242424242424** CVC: **Any 3 digits** Date: **Any future
+date** More info on **[Stripe Docs](https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers)**.
+
 ## Notes
 
-The keys are not hosted on the <GitHub.com>.
+The keys are not hosted on the [GitHub.com](https://github.com).
 
 ## ScreenShots
 

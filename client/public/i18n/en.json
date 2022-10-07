@@ -12,7 +12,7 @@
   "close": "Close",
   "header-info": "Card Payment - Type to Test:",
   "card-number": "Card Number:",
-  "card-digits": "Any 3 digits:",
+  "card-digits": "Any 3 digits",
   "card-date": "Any future date",
   "date": "Date",
   "link": "Link opens in a new window",
