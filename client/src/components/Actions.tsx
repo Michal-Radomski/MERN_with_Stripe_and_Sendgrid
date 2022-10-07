@@ -137,6 +137,10 @@ const Actions = (): JSX.Element => {
         // const { status } = response;
         // console.log({ status });
         // toast.success("Money has been sent");
+        if (present >= 2) {
+          // toast.info(`Your present for Michal is: ${present} PLN`);
+          toast.info((t("toast-info") as string) + `${present} PLN`);
+        }
         toast.success(t("toast-money"));
         const dataToState = response?.data?.response;
         dispatch(payWithCardAction(dataToState));
@@ -157,11 +161,7 @@ const Actions = (): JSX.Element => {
   };
 
   const onClosed = () => {
-    // console.log(`Your present for Michal is: ${present} PLN`);
-    if (present >= 2) {
-      // toast.info(`Your present for Michal is: ${present} PLN`);
-      toast.info((t("toast-info") as string) + `${present} PLN`);
-    }
+    console.log("Stripe checkout is closed");
   };
 
   const onSubmit = (event: React.SyntheticEvent) => {
