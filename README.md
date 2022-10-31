@@ -27,7 +27,8 @@ More info on **[Stripe Docs](https://stripe.com/docs/testing?numbers-or-method-o
 
 ## Notes
 
-The keys are not hosted on the [GitHub.com](https://github.com).
+The keys are not hosted on the [GitHub.com](https://github.com).\
+I have some packages installed globally (e.g. TypeScript, Nodemon) so you have to install them manually.
 
 ## ScreenShots
 
