@@ -45,7 +45,7 @@ The keys are not hosted on the [GitHub.com](https://github.com).
 - Global state of the App is maintained by: [Redux](https://redux.js.org).
 - [i18next](https://www.i18next.com) is used to handle translations.
 - [React](https://reactjs.org) is used to build client-side.
-- [Express](https://expressjs.com) is use to build server-side.
+- [Express](https://expressjs.com) is used to build server-side.
 - [Mongoose](https://mongoosejs.com/) and [Typegoose](https://www.npmjs.com/package/@typegoose/typegoose) are use to handle
   [MongoDB Atlas Database](https://www.mongodb.com).
 
