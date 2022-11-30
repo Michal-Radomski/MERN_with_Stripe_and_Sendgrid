@@ -11,7 +11,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 // Import routes
-import routes from "./routes";
+import indexRouter from "./indexRouter";
 
 // The server
 const app: Express = express();
@@ -31,7 +31,7 @@ app.use(
 );
 
 //Route middleware
-app.use("/api", routes);
+app.use("/api", indexRouter);
 
 // Mongo DB
 mongoose
