@@ -1,3 +1,6 @@
+import path from "path";
+import http from "http";
+
 import * as dotenv from "dotenv";
 dotenv.config();
 import express, { Express, Request, Response } from "express";
@@ -6,7 +9,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import helmet from "helmet";
-import path from "path";
 
 // Import routes
 import routes from "./routes";
@@ -59,7 +61,8 @@ if (process.env.NODE_ENV === "production") {
 // Port
 const port = (process.env.PORT || 5000) as number;
 
-app.listen({ port: port }, () => {
+const server = http.createServer(app);
+server.listen({ port: port }, () => {
   console.log(`Server is listening at http://localhost:${port}`);
   // For testing only
   console.log("Current Time:", new Date().toLocaleTimeString());
