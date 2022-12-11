@@ -12,7 +12,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
 
-export const getList: RequestHandler = async (req: Request, res: Response) => {
+export const getList: RequestHandler = async (req: Request, res: Response): Promise<void> => {
   console.log("req.ip:", req.ip);
   try {
     const list: IModel[] = await Model.find().sort({ createdAt: -1 });
@@ -23,7 +23,7 @@ export const getList: RequestHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const saveToMondoDB: RequestHandler = async (req: Request, res: Response) => {
+export const saveToMondoDB: RequestHandler = async (req: Request, res: Response): Promise<void> => {
   const { idempotencyKey, created, amount, greetingsFromRedux } = req.body;
   // console.log({ idempotencyKey, created, amount });
 
@@ -44,7 +44,7 @@ export const saveToMondoDB: RequestHandler = async (req: Request, res: Response)
   }
 };
 
-export const sendEmail: RequestHandler = async (req: Request, res: Response) => {
+export const sendEmail: RequestHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, amount, name, receipt_url, language } = req.body;
     // console.log({ email, amount, name, receipt_url, language });
@@ -92,7 +92,7 @@ export const sendEmail: RequestHandler = async (req: Request, res: Response) => 
 };
 
 //* V2 - Stripe payment without customer creation
-export const stripePayment: RequestHandler = async (req: Request, res: Response) => {
+export const stripePayment: RequestHandler = async (req: Request, res: Response): Promise<void> => {
   console.log("req.ip:", req.ip);
   const { product, token, present } = req.body;
   // console.log({ product, token, present });
@@ -149,8 +149,8 @@ export const stripePayment: RequestHandler = async (req: Request, res: Response)
 //   id: string;
 // }
 
-//* V1 - Stripe payment with customer creation
-// export const stripePayment:RequestHandler  = async (req: Request, res: Response) => {
+// * V1 - Stripe payment with customer creation
+// export const stripePayment: RequestHandler = async (req: Request, res: Response): Promise<void> => {
 //   console.log("req.ip:", req.ip);
 //   const { product, token, present } = req.body;
 //   // console.log({ product, token, present });
