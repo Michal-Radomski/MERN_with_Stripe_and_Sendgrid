@@ -9,7 +9,7 @@ Link to the application: [https://mern-stripe-sengrid.herokuapp.com](https://mer
 ### Motivation
 
 I wanted to build a [MERN stack](<https://wikitia.com/wiki/MERN_(solution_stack)>) application using
-[Stripe](https://stripe.com) and [SendGrid](https://sendgrid.com) but something other than E-commerce and Chap-app.
+[Stripe](https://stripe.com) and [SendGrid](https://sendgrid.com) but something other than E-commerce and Chat-app.
 
 ### General Info
 
