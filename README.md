@@ -2,7 +2,7 @@
 
 A MERN Stack App with Stripe and Sendgrid.
 
-Link to the application: [https://mern-stripe-sengrid.herokuapp.com](https://mern-stripe-sengrid.herokuapp.com)
+Link to the application: Coming soon...
 
 ## Description
 
