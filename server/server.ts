@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
 
-  app.get("*", (req: Request, res: Response) => {
+  app.get("/*", (req: Request, res: Response) => {
     console.log("req.ip:", req.ip);
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
