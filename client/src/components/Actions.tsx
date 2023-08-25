@@ -6,6 +6,8 @@ import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+//Todo: use it?
+import { shallowEqual } from "react-redux";
 
 import "../styles/styles.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -27,17 +29,20 @@ const Actions = (): JSX.Element => {
 
   const dispatch: AppDispatch = useAppDispatch();
   const [email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux, language] =
-    useAppSelector((state: RootState) => [
-      state?.appState?.receipt_email,
-      state?.appState?.amount_paid,
-      state?.appState?.name,
-      state?.appState?.mailWasSent,
-      state?.appState?.receipt_url,
-      state?.appState?.idempotencyKey,
-      state?.appState?.created,
-      state?.appState?.greetings,
-      state?.appState?.language,
-    ]);
+    useAppSelector(
+      (state: RootState) => [
+        state?.appState?.receipt_email,
+        state?.appState?.amount_paid,
+        state?.appState?.name,
+        state?.appState?.mailWasSent,
+        state?.appState?.receipt_url,
+        state?.appState?.idempotencyKey,
+        state?.appState?.created,
+        state?.appState?.greetings,
+        state?.appState?.language,
+      ],
+      shallowEqual
+    );
   // console.log({ email, amount, name, mailWasSent, receipt_url, idempotencyKey, created, greetingsFromRedux, language });
 
   const [present, setPresent] = React.useState<number>(0);
