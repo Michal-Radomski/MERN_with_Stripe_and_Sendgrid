@@ -1,6 +1,6 @@
 import express from "express";
 
-const indexRouter: express.Router = express.Router();
+const indexRouter: express.Router = express.Router({ strict: false, caseSensitive: true });
 
 import { getList, saveToMondoDB, sendEmail, stripePayment } from "./controller";
 
