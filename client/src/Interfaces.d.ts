@@ -2,7 +2,8 @@
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export type Fetch = typeof store.fetch;
+// export type Fetch = typeof store.fetch; //* V1
+export type Fetch = () => RootState; //* V2
 export type Action = typeof store.action;
 
 export interface ListItem {
