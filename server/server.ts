@@ -1,5 +1,6 @@
 // Todo: add compression: https://www.npmjs.com/package/compression
 // Todo: change name convention to: kebab-case eg: kebab-case.ts
+// Todo: Update CSP, add XSS and CSRF protection
 
 import path from "path";
 import http from "http";
